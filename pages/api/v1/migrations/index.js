@@ -1,6 +1,10 @@
 import { runner } from "node-pg-migrate";
-import { join } from 'path'
+import { resolve } from 'path'
 import database from "infra/database.js";
+
+// Get the project root directory - use process.cwd() which points to project root
+// In production, Next.js sets cwd to the project root
+const projectRoot = process.cwd();
 
 export default async function migrations(request, response) {
   const dbClient = await database.getNewClient();
@@ -9,7 +13,7 @@ export default async function migrations(request, response) {
     const defaultMigrationOptions = {
       dbClient: dbClient,
       dryRun: true,
-      dir: join('infra', 'migrations'),
+      dir: resolve(projectRoot, 'infra', 'migrations'),
       direction: 'up',
       verbose: true,
       migrationsTable: 'pgmigrations',
