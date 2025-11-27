@@ -1,5 +1,5 @@
 import { runner } from "node-pg-migrate";
-import { resolve } from 'path'
+import { resolve } from "path";
 import database from "infra/database.js";
 
 // Get the project root directory - use process.cwd() which points to project root
@@ -7,9 +7,9 @@ import database from "infra/database.js";
 const projectRoot = process.cwd();
 
 export default async function migrations(request, response) {
-  const allowedMethods = ['GET', 'POST'];
+  const allowedMethods = ["GET", "POST"];
   if (!allowedMethods.includes(request.method)) {
-    return response.status(405).json({ error: 'Method not allowed' });
+    return response.status(405).json({ error: "Method not allowed" });
   }
 
   let dbClient;
@@ -20,19 +20,19 @@ export default async function migrations(request, response) {
     const defaultMigrationOptions = {
       dbClient: dbClient,
       dryRun: true,
-      dir: resolve(projectRoot, 'infra', 'migrations'),
-      direction: 'up',
+      dir: resolve(projectRoot, "infra", "migrations"),
+      direction: "up",
       verbose: true,
-      migrationsTable: 'pgmigrations',
+      migrationsTable: "pgmigrations",
     };
-    if (request.method === 'GET') {
+    if (request.method === "GET") {
       const pendingMigrations = await runner(defaultMigrationOptions);
       return response.status(200).json(pendingMigrations);
     }
-    if (request.method === 'POST') {
+    if (request.method === "POST") {
       const migratedMigrations = await runner({
-         ...defaultMigrationOptions,
-         dryRun: false
+        ...defaultMigrationOptions,
+        dryRun: false,
       });
 
       if (migratedMigrations.length > 0) {
