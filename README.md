@@ -1,3 +1,3 @@
-# clone-tabnews
+# nextjs-boilerplate
 
-Um clone do TabNews do curso.dev
+A starter boilerplate for building scalable Next.js applications with best practices.
