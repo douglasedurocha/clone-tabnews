@@ -25,7 +25,7 @@ async function status(request, response) {
       database: {
         version: postgresVersion,
         max_connections: parseInt(databaseMaxConnections),
-        open_connections: openedConnections,
+        opened_connections: openedConnections,
       },
     },
   });
