@@ -19,7 +19,6 @@ describe("POST /api/v1/migrations", () => {
 
         const response1Body = await response1.json();
 
-
         expect(Array.isArray(response1Body)).toBe(true);
         expect(response1Body.length).toBeGreaterThan(0);
       });
